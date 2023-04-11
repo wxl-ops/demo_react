@@ -1,7 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-export default function list() {
-  const { listState, setListState } = useState([
+import "./index.scss";
+
+export default function List() {
+  const [listState] = useState([
     {
       article_id: "6295d46401e5b16fae551b1b",
       title: "2022 世界智能驾驶挑战赛",
@@ -86,11 +88,22 @@ export default function list() {
   ]);
   const listRef = useRef(null);
   const navigate = useNavigate();
+  useEffect(() => {
+    for (let i = 0; i < listRef.current.children.length; i++) {
+      setTimeout(() => {
+        listRef.current.children[i].classList.add("list-content-animation");
+      }, i * 300);
+    }
+  }, [listState]);
   return (
     <div className="list">
       <div className="header">
         <div className="left">
-          <img src="../../assets/logo_zc.png" className="logo" alt="" />
+          <img
+            src={require("../../assets/logo_zc.png")}
+            className="logo"
+            alt=""
+          />
           {/* <div v-if="configInfo.session" className="title">
         {{ configInfo.session + configInfo.name + configInfo.system }}
       </div> */}
@@ -101,7 +114,7 @@ export default function list() {
       <div className="page-login-outer">
         <div className="page-login-wrap">
           <img
-            src="../../assets/login_banner.png"
+            src={require("../../assets/login_banner.png")}
             className="page-login-banner"
             alt=""
           />
@@ -111,12 +124,11 @@ export default function list() {
         </div> */}
             <div className="page-login-hd">世界智能大会</div>
             <div className="page-login-opt">服务政企、企企之间交流合作</div>
-            <div className="page-login-opt-btns"></div>
           </div>
         </div>
       </div>
       <div className="list-bgc">
-        <div className="list-wrapper">
+        <div className="list-wrapper" ref={listRef}>
           {listState.map((listItem, index) => {
             return (
               <div
@@ -125,7 +137,7 @@ export default function list() {
                     ? "list-content"
                     : "list-content list-content-reverse"
                 }
-                ref={listRef}
+                key={index}
               >
                 <div className="list-content-img">
                   <div
@@ -148,9 +160,7 @@ export default function list() {
                     <button
                       className="desc-btn-style"
                       onClick={() => {
-                        navigate.push(
-                          `/list/listDetails/${listItem.article_id}`
-                        );
+                        navigate(`/list/listDetails/${listItem.article_id}`);
                       }}
                     >
                       查看详情
@@ -160,44 +170,6 @@ export default function list() {
               </div>
             );
           })}
-          {/* <div
-        className="list-content"
-        className={(index + 1) % 2 ? '' : 'list-content-reverse'}
-        v-for="(listItem, index) in listState"
-        :key="index"
-        ref="listRef"
-      >
-        <div className="list-content-img">
-          <div
-            className="img"
-            :style="{
-              background: `url(${require(`../../assets/pic0${
-                index + 1
-              }.jpg`)}) 50% / cover`,
-            }"
-          ></div>
-        </div>
-        <div className="list-content-desc">
-          <div className="desc-title">
-            <h4>{{ listItem.title }}</h4>
-          </div>
-          <div className="desc-detail">
-            <div>
-              {{ listItem.abstract }}
-            </div>
-          </div>
-          <div className="desc-btn">
-            <button
-              className="desc-btn-style"
-              onClick="
-                $router.push(`/list/listDetails/${listItem.article_id}`)
-              "
-            >
-              查看详情
-            </button>
-          </div>
-        </div>
-      </div> */}
         </div>
       </div>
       <div className="page-login-bottom">
@@ -205,7 +177,11 @@ export default function list() {
           世界智能大会 WORLD INTELLIGENCE CONGRESS
         </span>
         <span className="bottom-text">津ICP备17008349号-3</span>
-        <img src="../../assets/ioc_bootom.png" className="bottom-logo" alt="" />
+        <img
+          src={require("../../assets/ioc_bootom.png")}
+          className="bottom-logo"
+          alt=""
+        />
         <span className="bottom-text">津公网安备 12010302002098号</span>
       </div>
     </div>

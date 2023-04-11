@@ -1,3 +1,9 @@
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  box-sizing: border-box;
+}
 .list-details {
   width: 100%;
   height: 100vh;
@@ -231,7 +237,7 @@
         }
 
         .list-section-artical-content {
-          width: calc(100%-300px);
+          width: calc(100% - 300px);
           flex: 1;
 
           .list-section-artical-content-title {
@@ -256,7 +262,7 @@
               font-size: 24px;
             }
             .content-desc {
-              /deep/ p {
+              p {
                 margin-bottom: 4px;
                 font-size: 16px;
                 line-height: 24px;
@@ -289,7 +295,7 @@
                 font-size: 24px;
               }
               .content-match_detail {
-                /deep/ p {
+                p {
                   font-size: 16px;
                   line-height: 24px;
                   margin-bottom: 4px;
@@ -330,6 +336,7 @@
                 a {
                   font-size: 14px;
                   color: #383838;
+                  text-decoration: none;
                   &:hover {
                     color: #366be7;
                   }
